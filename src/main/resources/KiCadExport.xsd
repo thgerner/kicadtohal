@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="unqualified" attributeFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.kicad.org/KiCadExport" xmlns="http://www.kicad.org/KiCadExport">
+
+    <xsd:element name="export" type="exportType"></xsd:element>
+    
+    <xsd:complexType name="exportType">
+    	<xsd:sequence>
+    		<xsd:element name="design" type="designType" maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="components" type="componentsType" maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="libparts" type="libpartsType" maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="libraries" type="librariesType" maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="nets" type="netsType" maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    	</xsd:sequence>
+    	<xsd:attribute name="version" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="designType">
+    	<xsd:sequence>
+    		<xsd:element name="source" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+    		<xsd:element name="date" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+    		<xsd:element name="tool" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="sheet" type="sheetType" maxOccurs="unbounded" minOccurs="1">
+    		</xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="sheetType">
+    	<xsd:sequence>
+    		<xsd:element name="title_block" type="title_blockType"></xsd:element>
+    	</xsd:sequence>
+    	<xsd:attribute name="number" type="xsd:int"></xsd:attribute>
+    	<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="tstamps" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="title_blockType">
+    	<xsd:sequence>
+    		<xsd:element name="title" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+    		<xsd:element name="company" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+    		<xsd:element name="rev" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+    		<xsd:element name="date" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+    		<xsd:element name="source" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="comment" type="commentType" maxOccurs="unbounded" minOccurs="0">
+    		</xsd:element>
+        </xsd:sequence>
+
+    </xsd:complexType>
+
+    <xsd:complexType name="commentType">
+    	<xsd:attribute name="number" type="xsd:int"></xsd:attribute>
+    	<xsd:attribute name="value" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="componentsType">
+    	<xsd:sequence>
+    		<xsd:element name="comp" type="compType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="compType">
+    	<xsd:sequence>
+    		<xsd:element name="value" type="xsd:string" maxOccurs="1"
+    			minOccurs="1">
+    		</xsd:element>
+            <xsd:element name="fields" type="fieldsType" maxOccurs="1" minOccurs="0"></xsd:element>
+            <xsd:element name="libsource" type="libsourceType"
+    			maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="property" type="propertyType"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</xsd:element>
+    		<xsd:element name="sheetpath" type="sheetpathType"
+    			maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="tstamps" type="xsd:string" maxOccurs="1"
+    			minOccurs="1">
+    		</xsd:element>
+    	</xsd:sequence>
+    	<xsd:attribute name="ref" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="libsourceType">
+    	<xsd:attribute name="lib" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="part" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="description" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="propertyType">
+    	<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="value" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="sheetpathType">
+    	<xsd:attribute name="names" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="tstamps" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    
+    <xsd:complexType name="fieldType">
+    	<xsd:simpleContent>
+    		<xsd:extension base="xsd:string">
+    			<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+    		</xsd:extension>
+    	</xsd:simpleContent>
+    </xsd:complexType>
+    
+
+    <xsd:complexType name="fieldsType">
+    	<xsd:sequence>
+    		<xsd:element name="field" type="fieldType" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="libpartType">
+    	<xsd:sequence>
+    		<xsd:element name="fields" type="fieldsType" maxOccurs="1" minOccurs="1"></xsd:element>
+    		<xsd:element name="pins" type="pinsType" maxOccurs="1" minOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    	<xsd:attribute name="lib" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="part" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="pinType">
+    	<xsd:attribute name="num" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="type" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="pinsType">
+    	<xsd:sequence>
+    		<xsd:element name="pin" type="pinType" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="libpartsType">
+    	<xsd:sequence>
+    		<xsd:element name="libpart" type="libpartType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="libraryType">
+    	<xsd:sequence>
+    		<xsd:element name="uri" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="librariesType">
+    	<xsd:sequence>
+    		<xsd:element name="library" type="libraryType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+    	</xsd:sequence>
+    	<xsd:attribute name="logical" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+
+
+
+
+
+
+    <xsd:complexType name="nodeType">
+    	<xsd:attribute name="ref" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="pin" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="pinfunction" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="pintype" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="netType">
+    	<xsd:sequence>
+    		<xsd:element name="node" type="nodeType" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    	<xsd:attribute name="code" type="xsd:string"></xsd:attribute>
+    	<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="netsType">
+    	<xsd:sequence>
+    		<xsd:element name="net" type="netType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
